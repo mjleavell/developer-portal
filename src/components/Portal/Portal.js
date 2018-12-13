@@ -1,5 +1,5 @@
 import React from 'react';
-import 'Portal.scss';
+import './Portal.scss';
 
 class Portal extends React.Component {
   render() {

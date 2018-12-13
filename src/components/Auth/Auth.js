@@ -13,7 +13,9 @@ class Auth extends React.Component {
   render() {
     return (
       <div className="Auth">
-        <button className='btn btn-danger' onClick={this.authenticateUser}>Login to Github</button>
+        <button className='btn btn-outline-light auth-btn' onClick={this.authenticateUser}>
+          <img className="github-login-btn" src="https://help.dropsource.com/wp-content/uploads/sites/4/2017/02/gh-login-button.png" alt="github img"></img>
+        </button>
       </div>
     );
   }
