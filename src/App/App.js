@@ -10,14 +10,28 @@ import Profile from '../components/Profile/Profile';
 import './App.scss';
 
 class App extends Component {
+  state = {
+    authed: false,
+  }
+
   componentDidMount() {
     connection();
   }
 
+  isAuthenticated = () => {
+    this.setState({ authed: true });
+  }
+
   render() {
+    if (!this.state.authed) {
+      return (
+        <div className="App">
+          <Auth isAuthenticated={this.isAuthenticated}/>
+        </div>
+      );
+    }
     return (
       <div className="App">
-        <Auth />
         <Portal />
         <PortalForm />
         <Profile />
