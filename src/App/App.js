@@ -58,9 +58,15 @@ class App extends Component {
     return (
       <div className="App">
         <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent}/>
-        <Portal />
-        <PortalForm />
-        <Profile />
+        <div className="row justify-content-around">
+          <div className="col-3">
+            <Profile />
+          </div>
+          <div className="col-8">
+            <PortalForm />
+            <Portal />
+          </div>
+        </div>
       </div>
     );
   }
