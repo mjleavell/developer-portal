@@ -1,7 +1,9 @@
 .portal {
   margin-top: 3rem;
   margin-right: 1rem;
+  margin-bottom: 2rem;
   .portal-output {
-    height: 50vh;
+    height: 75vh;
+    overflow-y: scroll;
   }
 }
