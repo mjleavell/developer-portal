@@ -1,0 +1,42 @@
+{
+  "resource1": {
+    "name": "Sketch",
+    "type": "resource",
+    "url": "https://www.sketchapp.com/",
+    "timestamp": 1545932687857,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "resource2": {
+    "name": "Rocket - Emoji Picker",
+    "type": "resource",
+    "url": "http://matthewpalmer.net/rocket/",
+    "timestamp": 1545932433769,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "resource3": {
+    "name": "reactstrap",
+    "type": "resource",
+    "url": "https://reactstrap.github.io/",
+    "timestamp": 1545932038361,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "resource4": {
+    "name": "bootstrap",
+    "type": "resource",
+    "url": "https://getbootstrap.com/",
+    "timestamp": 1543861536000,
+    "uid": "123445",
+    "isCompleted": false
+  },
+  "resource5": {
+    "name": "Sip",
+    "type": "resource",
+    "url": "http://sipapp.io/",
+    "timestamp": 1543802644000,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "tutorial1": {
+    "name": "Wes Bos - JavaScript 30",
+    "type": "tutorial",
+    "url": "https://javascript30.com/",
+    "timestamp": 1528763298535,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "tutorial2": {
+    "name": "Wes Bos - React",
+    "type": "tutorial",
+    "url": "https://reactforbeginners.com/",
+    "timestamp": 1545932433769,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "tutorial3": {
+    "name": "CSS Grid",
+    "type": "tutorial",
+    "url": "https://css-tricks.com/snippets/css/complete-guide-grid/",
+    "timestamp": 1545932038361,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "tutorial4": {
+    "name": "Array and Object Methods",
+    "type": "tutorial",
+    "url": "https://codeburst.io/useful-javascript-array-and-object-methods-6c7971d93230",
+    "timestamp": 1543861536000,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "tutorial5": {
+    "name": "Array Reduce Method",
+    "type": "tutorial",
+    "url": "https://medium.freecodecamp.org/reduce-f47a7da511a9",
+    "timestamp": 1543802644000,
+    "uid": "21345",
+    "isCompleted": false
+  }
+}

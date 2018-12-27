@@ -1,0 +1,15 @@
+
+{
+  "blogs" : {
+    "example": "example"
+  },
+  "podcasts" : {
+    "example": "example"
+  },
+  "resources" : {
+    "example": "example"
+  },
+  "tutorials" : {
+    "example": "example"
+  }
+}
