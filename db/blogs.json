@@ -1,0 +1,42 @@
+{
+  "blog1": {
+    "name": "CodeBetter",
+    "type": "blog",
+    "url": "http://codebetter.com/",
+    "timestamp": 1528763298535,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "blog2": {
+    "name": "A List Apart",
+    "type": "blog",
+    "url": "http://alistapart.com/",
+    "timestamp": 1543848362000,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "blog3": {
+    "name": "Coding Horror",
+    "type": "blog",
+    "url": "http://www.codinghorror.com/blog/",
+    "timestamp": 1543861536000,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "blog4": {
+    "name": "Geeks For Geeks",
+    "type": "blog",
+    "url": "http://www.geeksforgeeks.org/",
+    "timestamp": 1545932038361,
+    "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+    "isCompleted": false
+  },
+  "blog5": {
+    "name": "Daily JS",
+    "type": "blog",
+    "url": "http://dailyjs.com/",
+    "timestamp": 1545932069667,
+    "uid": "12344",
+    "isCompleted": false
+  }
+}
