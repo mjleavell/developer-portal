@@ -79,8 +79,6 @@ class PortalForm extends React.Component {
               </button>
             </div>
           </div>
-          
-
         </form>
       </div>
     );
