@@ -1,95 +1,87 @@
 import React from 'react';
-import {
-  Form,
-  Row,
-  Col,
-  Button,
-} from 'reactstrap';
-import PropTypes from 'prop-types';
 import './PortalForm.scss';
 
-const defaultItem = {
-  name: '',
-  url: '',
-  uid: '',
-  type: '',
-};
 
 class PortalForm extends React.Component {
-  static propTypes = {
-    onSubmit: PropTypes.func,
-  }
-
-  state = {
-    newItem: defaultItem,
-  }
-
-  formFieldStringState = (name, e) => {
-    e.preventDefault();
-    const tempItem = { ...this.state.newItem };
-    tempItem[name] = e.target.value;
-    this.setState({ newItem: tempItem });
-  }
-
   render() {
     return (
       <div className="portal-form">
-        <Form>
-          <Form.Group
-            id="formControlsText"
-            type="text"
-            label="Text"
-            placeholder="Enter text"
-          />
-          <Form.Group
-            id="formControlsEmail"
-            type="email"
-            label="Email address"
-            placeholder="Enter email"
-          />
+        <h2 className="mt-2">Add new item</h2>
+        <form>
+          <div className="form-group row">
+            <div className="col-7 p-0 m-2">
+              <label htmlFor="form-name" className="mt-1">Name:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="form-name"
+                aria-describedby="textHelp"
+                placeholder="Enter name"
+              />
+              <label htmlFor="form-link" className="mt-1">Link:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="form-link"
+                aria-describedby="textHelp"
+                placeholder="Enter url"
+              />
+            </div>
+            <div className="form-group col-3 my-5 ml-2 align-self-center text-left">
+              <div className="form-check">
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  name="form-radio"
+                  id="radio-tutorial"
+                  value="tutorial"
+                />
+                <label className="form-check-label" htmlFor="radio-tutorial">Tutorial</label>
+              </div>
+              <div className="form-check">
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  name="form-radio"
+                  id="radio-blog"
+                  value="blog"
+                />
+                <label className="form-check-label" htmlFor="radio-blog">Blog</label>
+              </div>
+              <div className="form-check">
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  name="form-radio"
+                  id="radio-resource"
+                  value="resource"
+                />
+                <label className="form-check-label" htmlFor="radio-resource">Resource</label>
+              </div>
+              <div className="form-check">
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  name="form-radio"
+                  id="radio-podcast"
+                  value="podcast"
+                />
+                <label className="form-check-label" htmlFor="radio-podcast">Podcast</label>
+              </div>
+            </div>
+            <div className="form-group col-1 m-1 align-self-center">
+              <button
+                type="submit"
+                className="btn btn-outline-secondary"
+                id="submit-btn"
+              >
+              Add
+              </button>
+            </div>
+          </div>
+          
 
-          <Form.Group as={Row} controlId="formHorizontalPassword">
-            <Form.Label column sm={2}>
-              Password
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control type="password" placeholder="Password" />
-            </Col>
-          </Form.Group>
-          <fieldset>
-            <Form.Group as={Row}>
-              <Form.Label as="legend" column sm={2}>
-                Radios
-              </Form.Label>
-              <Col sm={10}>
-                <Form.Check
-                  type="radio"
-                  label="first radio"
-                  name="formHorizontalRadios"
-                  id="formHorizontalRadios1"
-                />
-                <Form.Check
-                  type="radio"
-                  label="second radio"
-                  name="formHorizontalRadios"
-                  id="formHorizontalRadios2"
-                />
-                <Form.Check
-                  type="radio"
-                  label="third radio"
-                  name="formHorizontalRadios"
-                  id="formHorizontalRadios3"
-                />
-              </Col>
-            </Form.Group>
-          </fieldset>
-
-          <Form.Group as={Row}>
-            <Col sm={{ span: 10, offset: 2 }}>
-              <Button type="submit">Sign in</Button>
-            </Col>
-          </Form.Group>
-        </Form>
+        </form>
       </div>
     );
   }
