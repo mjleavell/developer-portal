@@ -3,7 +3,6 @@
     "name": "SYNTAX",
     "type": "podcast",
     "url": "https://syntax.fm/?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=syntax",
-    "timestamp": 1528763298535,
     "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
     "isCompleted": false
   },
@@ -11,7 +10,6 @@
     "name": "Motion and Meaning",
     "type": "podcast",
     "url": "http://motionandmeaning.io/?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=motion-and-meaning",
-    "timestamp": 1545932038361,
     "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
     "isCompleted": false
   },
@@ -19,7 +17,6 @@
     "name": "Developer Tea",
     "type": "podcast",
     "url": "https://spec.fm/podcasts/developer-tea?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=developer-tea",
-    "timestamp": 1545932069667,
     "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
     "isCompleted": false
   },
@@ -27,7 +24,6 @@
     "name": "Front End Happy Hour",
     "type": "podcast",
     "url": "http://frontendhappyhour.com/?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=front-end-happy-hour",
-    "timestamp": 1545932038361,
     "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
     "isCompleted": false
   },
@@ -35,7 +31,6 @@
     "name": "JavaScript Jabber",
     "type": "podcast",
     "url": "https://devchat.tv/js-jabber?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=javascript-jabber",
-    "timestamp": 1545932433769,
     "uid": "12345",
     "isCompleted": false
   },
@@ -43,7 +38,6 @@
     "name": "CodeNewbie",
     "type": "podcast",
     "url": "https://www.codenewbie.org/podcast?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=code-newbie",
-    "timestamp": 1545932433769,
     "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
     "isCompleted": false
   }

@@ -15,7 +15,7 @@ class PortalNav extends React.Component {
   render() {
     return (
       <div className="portal-navbar">
-        <Nav tabs color="light" light>
+        <Nav tabs color="light">
           <NavItem>
             <NavLink
               id="tutorials"
