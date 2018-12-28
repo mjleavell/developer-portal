@@ -19,6 +19,7 @@ class PortalNav extends React.Component {
           <NavItem>
             <NavLink
               id="tutorials"
+              className="active"
             >
             Tutorials
             </NavLink>

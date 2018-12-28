@@ -12,11 +12,17 @@ import connection from '../helpers/data/connection';
 import authRequests from '../helpers/data/authRequests';
 import './App.scss';
 import tutorialsRequest from '../helpers/data/tutorialsRequest';
+import resourcesRequest from '../helpers/data/resourcesRequest';
+import podcastsRequests from '../helpers/data/podcastsRequests';
+import blogsRequest from '../helpers/data/blogsRequest';
 
 class App extends Component {
   state = {
     authed: false,
     tutorials: [],
+    resources: [],
+    blogs: [],
+    podcasts: [],
   }
 
   componentDidMount() {
@@ -30,9 +36,36 @@ class App extends Component {
         .catch(err => console.error('get tutorials', err));
     };
 
+    const getAllResources = () => {
+      const uid = authRequests.getCurrentUid();
+      resourcesRequest.getResources(uid).then((resources) => {
+        this.setState({ resources });
+      })
+        .catch(err => console.error('get tutorials', err));
+    };
+
+    const getAllPodcasts = () => {
+      const uid = authRequests.getCurrentUid();
+      podcastsRequests.getPodcasts(uid).then((podcasts) => {
+        this.setState({ podcasts });
+      })
+        .catch(err => console.error('get tutorials', err));
+    };
+
+    const getAllBlogs = () => {
+      const uid = authRequests.getCurrentUid();
+      blogsRequest.getBlogs(uid).then((resources) => {
+        this.setState({ resources });
+      })
+        .catch(err => console.error('get tutorials', err));
+    };
+
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         getAllTutorials();
+        getAllResources();
+        getAllPodcasts();
+        getAllBlogs();
         this.setState({
           authed: true,
         });
@@ -78,6 +111,9 @@ class App extends Component {
             <PortalForm />
             <Portal
               tutorials={this.state.tutorials}
+              resources={this.state.resources}
+              podcasts={this.state.podcasts}
+              blogs={this.state.blogs}
             />
           </div>
         </div>

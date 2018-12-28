@@ -1,18 +1,18 @@
 import React from 'react';
 import itemShape from '../../helpers/propz/itemShape';
-import './TutorialItem.scss';
+import './PodcastsItem.scss';
 
-class TutorialItem extends React.Component {
+class PodcastItem extends React.Component {
   static propTypes = {
-    tutorial: itemShape,
+    podcast: itemShape,
   }
 
   render() {
-    const { tutorial } = this.props;
+    const { podcast } = this.props;
     return (
-      <li className="tutorial-item">
-        <span className="col-md-4">{tutorial.name}</span>
-        <span className="col-md-6">{tutorial.url}</span>
+      <li className="podcast-item">
+        <span className="col-md-4">{podcast.name}</span>
+        <span className="col-md-6">{podcast.url}</span>
         <span className="col-md-1">
           <button className="btn btn-danger">X</button>
         </span>
@@ -20,10 +20,10 @@ class TutorialItem extends React.Component {
           <input
             type="checkbox"
             className="form-check-input item-checkbox"
-            id="tutorial-check"
-            checked={tutorial.isCompleted}
+            id="podcast-check"
+            checked={podcast.isCompleted}
           />
-          <label className="form-check-label" htmlFor="tutorial-check">
+          <label className="form-check-label" htmlFor="podcast-check">
             Done
           </label>
         </div>
@@ -32,4 +32,4 @@ class TutorialItem extends React.Component {
   }
 }
 
-export default TutorialItem;
+export default PodcastItem;
