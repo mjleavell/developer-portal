@@ -40,6 +40,7 @@ class PortalNav extends React.Component {
               id="tutorials"
               className={classnames({ active: this.state.activeTab === 'tutorials' })}
               onClick={() => { this.toggle('tutorials'); }}
+              className="active"
             >
             Tutorials
             </NavLink>

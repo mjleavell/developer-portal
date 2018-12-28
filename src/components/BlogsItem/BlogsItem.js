@@ -1,18 +1,18 @@
 import React from 'react';
 import itemShape from '../../helpers/propz/itemShape';
-import './TutorialItem.scss';
+import './BlogsItem.scss';
 
-class TutorialItem extends React.Component {
+class BlogItem extends React.Component {
   static propTypes = {
-    tutorial: itemShape,
+    blog: itemShape,
   }
 
   render() {
-    const { tutorial } = this.props;
+    const { blog } = this.props;
     return (
-      <li className="tutorial-item">
-        <span className="col-md-4">{tutorial.name}</span>
-        <span className="col-md-6">{tutorial.url}</span>
+      <li className="blog-item">
+        <span className="col-md-4">{blog.name}</span>
+        <span className="col-md-6">{blog.url}</span>
         <span className="col-md-1">
           <button className="btn btn-danger">X</button>
         </span>
@@ -20,10 +20,10 @@ class TutorialItem extends React.Component {
           <input
             type="checkbox"
             className="form-check-input item-checkbox"
-            id="tutorial-check"
-            checked={tutorial.isCompleted}
+            id="blog-check"
+            checked={blog.isCompleted}
           />
-          <label className="form-check-label" htmlFor="tutorial-check">
+          <label className="form-check-label" htmlFor="blog-check">
             Done
           </label>
         </div>
@@ -32,4 +32,4 @@ class TutorialItem extends React.Component {
   }
 }
 
-export default TutorialItem;
+export default BlogItem;
