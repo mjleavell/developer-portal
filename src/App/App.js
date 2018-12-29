@@ -54,8 +54,8 @@ class App extends Component {
 
     const getAllBlogs = () => {
       const uid = authRequests.getCurrentUid();
-      blogsRequest.getBlogs(uid).then((resources) => {
-        this.setState({ resources });
+      blogsRequest.getBlogs(uid).then((blogs) => {
+        this.setState({ blogs });
       })
         .catch(err => console.error('get tutorials', err));
     };
