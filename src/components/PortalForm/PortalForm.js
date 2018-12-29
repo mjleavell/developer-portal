@@ -1,7 +1,6 @@
 import React from 'react';
 import './PortalForm.scss';
 
-
 class PortalForm extends React.Component {
   render() {
     return (
@@ -17,14 +16,16 @@ class PortalForm extends React.Component {
                 id="form-name"
                 aria-describedby="textHelp"
                 placeholder="Enter name"
+                // onChange={this.handleName}
               />
               <label htmlFor="form-link" className="mt-1">Link:</label>
               <input
                 type="text"
                 className="form-control"
-                id="form-link"
+                id="form-url"
                 aria-describedby="textHelp"
                 placeholder="Enter url"
+                // onChange={this.handleUrl}
               />
             </div>
             <div className="form-group col-3 my-5 ml-2 align-self-center text-left">
@@ -35,6 +36,7 @@ class PortalForm extends React.Component {
                   name="form-radio"
                   id="radio-tutorial"
                   value="tutorial"
+                  // onChange={this.handleRadioBtn}
                 />
                 <label className="form-check-label" htmlFor="radio-tutorial">Tutorial</label>
               </div>
@@ -45,6 +47,7 @@ class PortalForm extends React.Component {
                   name="form-radio"
                   id="radio-blog"
                   value="blog"
+                  // onChange={this.handleRadioBtn}
                 />
                 <label className="form-check-label" htmlFor="radio-blog">Blog</label>
               </div>
@@ -55,6 +58,7 @@ class PortalForm extends React.Component {
                   name="form-radio"
                   id="radio-resource"
                   value="resource"
+                  // onChange={this.handleRadioBtn}
                 />
                 <label className="form-check-label" htmlFor="radio-resource">Resource</label>
               </div>
@@ -65,6 +69,7 @@ class PortalForm extends React.Component {
                   name="form-radio"
                   id="radio-podcast"
                   value="podcast"
+                  // onChange={this.handleRadioBtn}
                 />
                 <label className="form-check-label" htmlFor="radio-podcast">Podcast</label>
               </div>
@@ -74,6 +79,7 @@ class PortalForm extends React.Component {
                 type="submit"
                 className="btn btn-outline-secondary"
                 id="submit-btn"
+                // onSubmit={this.handleFormSubmit}
               >
               Add
               </button>
