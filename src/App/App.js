@@ -15,7 +15,6 @@ import tutorialsRequest from '../helpers/data/tutorialsRequest';
 import resourcesRequest from '../helpers/data/resourcesRequest';
 import podcastsRequests from '../helpers/data/podcastsRequests';
 import blogsRequest from '../helpers/data/blogsRequest';
-import portalRequests from '../helpers/data/portalRequests';
 
 class App extends Component {
   state = {
@@ -28,35 +27,36 @@ class App extends Component {
     items: [],
   }
 
+  getAllItems = () => {
+    //   const uid = authRequests.getCurrentUid();
+    //   portalRequests.getItems(uid, type).then((items) => {
+    //     this.setState({ items });
+    //   });
+    const uid = authRequests.getCurrentUid();
+    tutorialsRequest.getTutorials(uid).then((tutorials) => {
+      this.setState({ tutorials });
+    });
+    resourcesRequest.getResources(uid).then((resources) => {
+      this.setState({ resources });
+    });
+    podcastsRequests.getPodcasts(uid).then((podcasts) => {
+      this.setState({ podcasts });
+    });
+    blogsRequest.getBlogs(uid).then((blogs) => {
+      this.setState({ blogs });
+    })
+      .catch(err => console.error('get tutorials', err));
+  };
+
   componentDidMount() {
     connection();
 
-    const getAllItems = () => {
-      //   const uid = authRequests.getCurrentUid();
-      //   portalRequests.getItems(uid, type).then((items) => {
-      //     this.setState({ items });
-      //   });
-      const uid = authRequests.getCurrentUid();
-      tutorialsRequest.getTutorials(uid).then((tutorials) => {
-        this.setState({ tutorials });
-      });
-      resourcesRequest.getResources(uid).then((resources) => {
-        this.setState({ resources });
-      });
-      podcastsRequests.getPodcasts(uid).then((podcasts) => {
-        this.setState({ podcasts });
-      });
-      blogsRequest.getBlogs(uid).then((blogs) => {
-        this.setState({ blogs });
-      })
-        .catch(err => console.error('get tutorials', err));
-    };
-
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        getAllItems();
+        const getAllItemz = this.getAllItems();
         this.setState({
           authed: true,
+          getAllItemz,
         });
       } else {
         this.setState({
@@ -99,6 +99,7 @@ class App extends Component {
       resources,
       blogs,
       podcasts,
+      activeTab,
     } = this.state;
 
     const logoutClickEvent = () => {
@@ -137,6 +138,7 @@ class App extends Component {
               podcasts={podcasts}
               blogs={blogs}
               deleteSingleTutorial={this.deleteOne}
+              activeTab={activeTab}
               tabView={this.tabView}
             />
           </div>

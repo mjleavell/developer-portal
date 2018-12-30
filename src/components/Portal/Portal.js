@@ -13,11 +13,16 @@ import TutorialItem from '../TutorialItem/TutorialItem';
 import ResourceItem from '../ResourceItem/ResourceItem';
 import BlogsItem from '../BlogsItem/BlogsItem';
 import PodcastItem from '../PodcastsItem/PodcastsItem';
+import itemShape from '../../helpers/propz/itemShape';
 
 class Portal extends React.Component {
   static propTypes = {
     deleteTutorial: PropTypes.func,
     tabView: PropTypes.func,
+    // blogs: PropTypes.arrayOf(itemShape),
+    // podcasts: PropTypes.arrayOf(itemShape),
+    // tutorials: PropTypes.arrayOf(itemShape),
+    // resources: PropTypes.arrayOf(itemShape),
   }
 
   // constructor(props) {
@@ -30,7 +35,7 @@ class Portal extends React.Component {
   // }
 
   // toggle(tab) {
-  //   if (this.state.activeTab !== tab) {
+  //   if (activeTab !== tab) {
   //     this.setState({
   //       activeTab: tab,
   //     });
