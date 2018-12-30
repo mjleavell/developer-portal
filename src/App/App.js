@@ -103,6 +103,16 @@ class App extends Component {
       });
   }
 
+  formSubmitEvent = (newItem) => {
+    const uid = authRequests.getCurrentUid();
+    tutorialsRequest.postRequest(newItem).then(() => {
+      tutorialsRequest.getTutorials(uid).then((tutorials) => {
+        this.setState({ tutorials });
+      });
+    })
+      .catch(err => console.error('error formSubmit', err));
+  }
+
   render() {
     const {
       authed,
@@ -141,7 +151,7 @@ class App extends Component {
             <Profile />
           </div>
           <div className="col-8">
-            <PortalForm />
+            <PortalForm onSubmit={this.formSubmitEvent}/>
             <Portal
               // items={items}
               tutorials={tutorials}

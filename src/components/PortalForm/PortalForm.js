@@ -1,31 +1,83 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './PortalForm.scss';
+import authRequests from '../../helpers/data/authRequests';
+
+const defaultItem = {
+  name: '',
+  type: '',
+  url: '',
+  uid: '',
+  isCompleted: false,
+};
 
 class PortalForm extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func,
+  }
+
+  state = {
+    newTutorial: defaultItem,
+    radioBtnSelected: false,
+  }
+
+  formFieldStringState = (value, e) => {
+    e.preventDefault();
+    const tempTutorial = { ...this.state.newTutorial };
+    tempTutorial[value] = e.target.value;
+    this.setState({ newTutorial: tempTutorial });
+  }
+
+  handleName = e => this.formFieldStringState('name', e);
+
+  handleUrl = e => this.formFieldStringState('url', e);
+
+  handleRadioType = (e) => {
+    this.setState({ radioBtnSelected: e.target.value });
+    this.formFieldStringState('type', e);
+  }
+
+  formSubmit = (e) => {
+    e.preventDefault();
+    const { onSubmit } = this.props;
+    const myItem = { ...this.state.newTutorial };
+    myItem.uid = authRequests.getCurrentUid();
+    console.log(myItem);
+    onSubmit(myItem);
+    this.setState({ newTutorial: defaultItem });
+  }
+
   render() {
+    const {
+      newTutorial,
+      radioBtnSelected,
+    } = this.state;
+
     return (
       <div className="portal-form">
         <h2 className="mt-2">Add new item</h2>
-        <form>
+        <form onSubmit={this.formSubmit}>
           <div className="form-group row">
             <div className="col-7 p-0 m-2">
-              <label htmlFor="form-name" className="mt-1">Name:</label>
+              <label htmlFor="name" className="mt-1">Name:</label>
               <input
                 type="text"
                 className="form-control"
-                id="form-name"
+                id="name"
                 aria-describedby="textHelp"
                 placeholder="Enter name"
-                // onChange={this.handleName}
+                value={newTutorial.name}
+                onChange={this.handleName}
               />
-              <label htmlFor="form-link" className="mt-1">Link:</label>
+              <label htmlFor="url" className="mt-1">Link:</label>
               <input
                 type="text"
                 className="form-control"
-                id="form-url"
+                id="url"
                 aria-describedby="textHelp"
                 placeholder="Enter url"
-                // onChange={this.handleUrl}
+                value={newTutorial.url}
+                onChange={this.handleUrl}
               />
             </div>
             <div className="form-group col-3 my-5 ml-2 align-self-center text-left">
@@ -36,7 +88,8 @@ class PortalForm extends React.Component {
                   name="form-radio"
                   id="radio-tutorial"
                   value="tutorial"
-                  // onChange={this.handleRadioBtn}
+                  checked={radioBtnSelected === 'tutorial'}
+                  onChange={this.handleRadioType}
                 />
                 <label className="form-check-label" htmlFor="radio-tutorial">Tutorial</label>
               </div>
@@ -47,7 +100,8 @@ class PortalForm extends React.Component {
                   name="form-radio"
                   id="radio-blog"
                   value="blog"
-                  // onChange={this.handleRadioBtn}
+                  checked={radioBtnSelected === 'blog'}
+                  onChange={this.handleRadioType}
                 />
                 <label className="form-check-label" htmlFor="radio-blog">Blog</label>
               </div>
@@ -58,7 +112,8 @@ class PortalForm extends React.Component {
                   name="form-radio"
                   id="radio-resource"
                   value="resource"
-                  // onChange={this.handleRadioBtn}
+                  checked={radioBtnSelected === 'resource'}
+                  onChange={this.handleRadioType}
                 />
                 <label className="form-check-label" htmlFor="radio-resource">Resource</label>
               </div>
@@ -69,7 +124,8 @@ class PortalForm extends React.Component {
                   name="form-radio"
                   id="radio-podcast"
                   value="podcast"
-                  // onChange={this.handleRadioBtn}
+                  checked={radioBtnSelected === 'podcast'}
+                  onChange={this.handleRadioType}
                 />
                 <label className="form-check-label" htmlFor="radio-podcast">Podcast</label>
               </div>
@@ -79,7 +135,6 @@ class PortalForm extends React.Component {
                 type="submit"
                 className="btn btn-outline-secondary"
                 id="submit-btn"
-                // onSubmit={this.handleFormSubmit}
               >
               Add
               </button>
