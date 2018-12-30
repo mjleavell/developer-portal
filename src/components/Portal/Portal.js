@@ -8,28 +8,34 @@ import {
   TabContent,
   TabPane,
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 import TutorialItem from '../TutorialItem/TutorialItem';
 import ResourceItem from '../ResourceItem/ResourceItem';
 import BlogsItem from '../BlogsItem/BlogsItem';
 import PodcastItem from '../PodcastsItem/PodcastsItem';
 
 class Portal extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      activeTab: 'tutorials',
-    };
+  static propTypes = {
+    deleteTutorial: PropTypes.func,
+    tabView: PropTypes.func,
   }
 
-  toggle(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({
-        activeTab: tab,
-      });
-    }
-  }
+  // constructor(props) {
+  //   super(props);
+
+  //   tabView = tabView.bind(this);
+  //   this.state = {
+  //     activeTab: 'tutorials',
+  //   };
+  // }
+
+  // toggle(tab) {
+  //   if (this.state.activeTab !== tab) {
+  //     this.setState({
+  //       activeTab: tab,
+  //     });
+  //   }
+  // }
 
   render() {
     const {
@@ -37,12 +43,16 @@ class Portal extends React.Component {
       resources,
       blogs,
       podcasts,
+      activeTab,
+      tabView,
+      deleteSingleTutorial,
     } = this.props;
 
     const tutorialItemComponents = tutorials.map(tutorial => (
       <TutorialItem
         tutorial={tutorial}
         key={tutorial.id}
+        deleteSingleTutorial={deleteSingleTutorial}
       />
     ));
 
@@ -73,8 +83,8 @@ class Portal extends React.Component {
           <NavItem>
             <NavLink
               id="tutorials"
-              className={classnames({ active: this.state.activeTab === 'tutorials' })}
-              onClick={() => { this.toggle('tutorials'); }}
+              className={classnames({ active: activeTab === 'tutorials' })}
+              onClick={() => { tabView('tutorials'); }}
             >
             Tutorials
             </NavLink>
@@ -82,8 +92,8 @@ class Portal extends React.Component {
           <NavItem>
             <NavLink
               id="blogs"
-              className={classnames({ active: this.state.activeTab === 'blogs' })}
-              onClick={() => { this.toggle('blogs'); }}
+              className={classnames({ active: activeTab === 'blogs' })}
+              onClick={() => { tabView('blogs'); }}
             >
             Blogs
             </NavLink>
@@ -91,8 +101,8 @@ class Portal extends React.Component {
           <NavItem>
             <NavLink
               id="resources"
-              className={classnames({ active: this.state.activeTab === 'resources' })}
-              onClick={() => { this.toggle('resources'); }}
+              className={classnames({ active: activeTab === 'resources' })}
+              onClick={() => { tabView('resources'); }}
             >
             Resources
             </NavLink>
@@ -100,15 +110,15 @@ class Portal extends React.Component {
           <NavItem>
             <NavLink
               id="podcasts"
-              className={classnames({ active: this.state.activeTab === 'podcasts' })}
-              onClick={() => { this.toggle('podcasts'); }}
+              className={classnames({ active: activeTab === 'podcasts' })}
+              onClick={() => { tabView('podcasts'); }}
             >
             Podcasts
             </NavLink>
           </NavItem>
         </Nav>
         <div className="portal-content">
-          <TabContent activeTab={this.state.activeTab}>
+          <TabContent activeTab={activeTab}>
             <TabPane tabId="tutorials">
               {tutorialItemComponents}
             </TabPane>

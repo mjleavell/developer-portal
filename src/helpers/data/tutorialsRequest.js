@@ -17,6 +17,12 @@ const getTutorials = uid => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const deleteTutorial = tutorialId => axios.delete(`${baseUrl}/tutorials/${tutorialId}.json`);
+
+const updateIsCompleted = (tutorialId, isCompleted) => axios.patch(`${baseUrl}/tutorials/${tutorialId}.json`, { isCompleted });
+
 export default {
   getTutorials,
+  deleteTutorial,
+  updateIsCompleted,
 };

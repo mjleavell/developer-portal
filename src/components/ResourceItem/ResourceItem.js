@@ -21,7 +21,7 @@ class ResourceItem extends React.Component {
             type="checkbox"
             className="form-check-input item-checkbox"
             id="resource-check"
-            checked={resource.isCompleted}
+            // checked={resource.isCompleted}
           />
           <label className="form-check-label" htmlFor="resource-check">
             Done
