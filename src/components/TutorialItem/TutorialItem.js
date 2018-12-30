@@ -7,12 +7,20 @@ class TutorialItem extends React.Component {
   static propTypes = {
     tutorial: itemShape,
     deleteSingleTutorial: PropTypes.func,
+    updateIsCompleted: PropTypes.func,
   }
 
   deleteEvent = (e) => {
     e.preventDefault();
     const { deleteSingleTutorial, tutorial } = this.props;
     deleteSingleTutorial(tutorial.id);
+  }
+
+  updateEvent = (e) => {
+    e.preventDefault();
+    const { updateIsCompleted, tutorial } = this.props;
+    const isCompleted = e.target.checked;
+    updateIsCompleted(tutorial.id, isCompleted);
   }
 
   render() {
@@ -29,7 +37,8 @@ class TutorialItem extends React.Component {
             type="checkbox"
             className="form-check-input item-checkbox"
             id="tutorial-check"
-            // checked={tutorial.isCompleted}
+            checked={tutorial.isCompleted}
+            onChange={this.updateEvent}
           />
           <label className="form-check-label" htmlFor="tutorial-check">
             Done

@@ -13,34 +13,13 @@ import TutorialItem from '../TutorialItem/TutorialItem';
 import ResourceItem from '../ResourceItem/ResourceItem';
 import BlogsItem from '../BlogsItem/BlogsItem';
 import PodcastItem from '../PodcastsItem/PodcastsItem';
-import itemShape from '../../helpers/propz/itemShape';
 
 class Portal extends React.Component {
   static propTypes = {
-    deleteTutorial: PropTypes.func,
+    deleteSingleTutorial: PropTypes.func,
+    updateIsCompleted: PropTypes.func,
     tabView: PropTypes.func,
-    // blogs: PropTypes.arrayOf(itemShape),
-    // podcasts: PropTypes.arrayOf(itemShape),
-    // tutorials: PropTypes.arrayOf(itemShape),
-    // resources: PropTypes.arrayOf(itemShape),
   }
-
-  // constructor(props) {
-  //   super(props);
-
-  //   tabView = tabView.bind(this);
-  //   this.state = {
-  //     activeTab: 'tutorials',
-  //   };
-  // }
-
-  // toggle(tab) {
-  //   if (activeTab !== tab) {
-  //     this.setState({
-  //       activeTab: tab,
-  //     });
-  //   }
-  // }
 
   render() {
     const {
@@ -51,6 +30,7 @@ class Portal extends React.Component {
       activeTab,
       tabView,
       deleteSingleTutorial,
+      updateIsCompleted,
     } = this.props;
 
     const tutorialItemComponents = tutorials.map(tutorial => (
@@ -58,6 +38,7 @@ class Portal extends React.Component {
         tutorial={tutorial}
         key={tutorial.id}
         deleteSingleTutorial={deleteSingleTutorial}
+        updateIsCompleted={updateIsCompleted}
       />
     ));
 

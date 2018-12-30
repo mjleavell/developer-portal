@@ -24,39 +24,39 @@ class App extends Component {
     resources: [],
     blogs: [],
     podcasts: [],
-    items: [],
+    // items: [],
   }
 
-  getAllItems = () => {
-    //   const uid = authRequests.getCurrentUid();
-    //   portalRequests.getItems(uid, type).then((items) => {
-    //     this.setState({ items });
-    //   });
-    const uid = authRequests.getCurrentUid();
-    tutorialsRequest.getTutorials(uid).then((tutorials) => {
-      this.setState({ tutorials });
-    });
-    resourcesRequest.getResources(uid).then((resources) => {
-      this.setState({ resources });
-    });
-    podcastsRequests.getPodcasts(uid).then((podcasts) => {
-      this.setState({ podcasts });
-    });
-    blogsRequest.getBlogs(uid).then((blogs) => {
-      this.setState({ blogs });
-    })
-      .catch(err => console.error('get tutorials', err));
-  };
 
   componentDidMount() {
     connection();
 
+    const getAllItems = () => {
+    //   const uid = authRequests.getCurrentUid();
+    //   portalRequests.getItems(uid, type).then((items) => {
+    //     this.setState({ items });
+    //   });
+      const uid = authRequests.getCurrentUid();
+      tutorialsRequest.getTutorials(uid).then((tutorials) => {
+        this.setState({ tutorials });
+      });
+      resourcesRequest.getResources(uid).then((resources) => {
+        this.setState({ resources });
+      });
+      podcastsRequests.getPodcasts(uid).then((podcasts) => {
+        this.setState({ podcasts });
+      });
+      blogsRequest.getBlogs(uid).then((blogs) => {
+        this.setState({ blogs });
+      })
+        .catch(err => console.error('get tutorials', err));
+    };
+
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        const getAllItemz = this.getAllItems();
+        getAllItems();
         this.setState({
           authed: true,
-          getAllItemz,
         });
       } else {
         this.setState({
@@ -82,14 +82,25 @@ class App extends Component {
   }
 
   deleteOne = (tutorialId) => {
+    const uid = authRequests.getCurrentUid();
     tutorialsRequest.deleteTutorial(tutorialId)
       .then(() => {
-        tutorialsRequest.getTutorials()
+        tutorialsRequest.getTutorials(uid)
           .then((tutorials) => {
             this.setState({ tutorials });
           });
       })
       .catch(err => console.error('error with delete single', err));
+  }
+
+  updateOneCheckbox = (tutorialId, isCompleted) => {
+    const uid = authRequests.getCurrentUid();
+    tutorialsRequest.updateIsCompleted(tutorialId, isCompleted)
+      .then(() => {
+        tutorialsRequest.getTutorials(uid).then((tutorials) => {
+          this.setState({ tutorials });
+        });
+      });
   }
 
   render() {
@@ -137,9 +148,10 @@ class App extends Component {
               resources={resources}
               podcasts={podcasts}
               blogs={blogs}
-              deleteSingleTutorial={this.deleteOne}
               activeTab={activeTab}
               tabView={this.tabView}
+              deleteSingleTutorial={this.deleteOne}
+              updateIsCompleted={this.updateOneCheckbox}
             />
           </div>
         </div>
