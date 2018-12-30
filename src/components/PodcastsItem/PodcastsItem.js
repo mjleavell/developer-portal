@@ -21,7 +21,7 @@ class PodcastItem extends React.Component {
             type="checkbox"
             className="form-check-input item-checkbox"
             id="podcast-check"
-            checked={podcast.isCompleted}
+            // checked={podcast.isCompleted}
           />
           <label className="form-check-label" htmlFor="podcast-check">
             Done

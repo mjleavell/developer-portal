@@ -21,7 +21,7 @@ class BlogItem extends React.Component {
             type="checkbox"
             className="form-check-input item-checkbox"
             id="blog-check"
-            checked={blog.isCompleted}
+            // checked={blog.isCompleted}
           />
           <label className="form-check-label" htmlFor="blog-check">
             Done

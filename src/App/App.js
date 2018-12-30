@@ -19,41 +19,33 @@ import blogsRequest from '../helpers/data/blogsRequest';
 class App extends Component {
   state = {
     authed: false,
+    activeTab: 'tutorials',
     tutorials: [],
     resources: [],
     blogs: [],
     podcasts: [],
+    // items: [],
   }
+
 
   componentDidMount() {
     connection();
 
-    const getAllTutorials = () => {
+    const getAllItems = () => {
+    //   const uid = authRequests.getCurrentUid();
+    //   portalRequests.getItems(uid, type).then((items) => {
+    //     this.setState({ items });
+    //   });
       const uid = authRequests.getCurrentUid();
       tutorialsRequest.getTutorials(uid).then((tutorials) => {
         this.setState({ tutorials });
-      })
-        .catch(err => console.error('get tutorials', err));
-    };
-
-    const getAllResources = () => {
-      const uid = authRequests.getCurrentUid();
+      });
       resourcesRequest.getResources(uid).then((resources) => {
         this.setState({ resources });
-      })
-        .catch(err => console.error('get tutorials', err));
-    };
-
-    const getAllPodcasts = () => {
-      const uid = authRequests.getCurrentUid();
+      });
       podcastsRequests.getPodcasts(uid).then((podcasts) => {
         this.setState({ podcasts });
-      })
-        .catch(err => console.error('get tutorials', err));
-    };
-
-    const getAllBlogs = () => {
-      const uid = authRequests.getCurrentUid();
+      });
       blogsRequest.getBlogs(uid).then((blogs) => {
         this.setState({ blogs });
       })
@@ -62,10 +54,7 @@ class App extends Component {
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        getAllTutorials();
-        getAllResources();
-        getAllPodcasts();
-        getAllBlogs();
+        getAllItems();
         this.setState({
           authed: true,
         });
@@ -81,14 +70,58 @@ class App extends Component {
     this.removeListener();
   }
 
+  tabView = (tabId) => {
+    const currentTabId = this.state.activeTab;
+    if (currentTabId !== tabId) {
+      this.setState({ activeTab: tabId });
+    }
+  };
+
   isAuthenticated = () => {
     this.setState({ authed: true });
   }
 
+  deleteOne = (tutorialId) => {
+    const uid = authRequests.getCurrentUid();
+    tutorialsRequest.deleteTutorial(tutorialId)
+      .then(() => {
+        tutorialsRequest.getTutorials(uid)
+          .then((tutorials) => {
+            this.setState({ tutorials });
+          });
+      })
+      .catch(err => console.error('error with delete single', err));
+  }
+
+  updateOneCheckbox = (tutorialId, isCompleted) => {
+    const uid = authRequests.getCurrentUid();
+    tutorialsRequest.updateIsCompleted(tutorialId, isCompleted)
+      .then(() => {
+        tutorialsRequest.getTutorials(uid).then((tutorials) => {
+          this.setState({ tutorials });
+        });
+      });
+  }
+
   render() {
+    const {
+      authed,
+      tutorials,
+      resources,
+      blogs,
+      podcasts,
+      activeTab,
+    } = this.state;
+
     const logoutClickEvent = () => {
       authRequests.logoutUser();
-      this.setState({ authed: false });
+      this.setState({
+        authed: false,
+        tutorials: [],
+        resources: [],
+        blogs: [],
+        podcasts: [],
+      });
     };
 
     if (!this.state.authed) {
@@ -102,7 +135,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <MyNavbar isAuthed={this.state.authed} logoutClickEvent={logoutClickEvent}/>
+        <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
         <div className="row justify-content-around">
           <div className="col-3">
             <Profile />
@@ -110,10 +143,15 @@ class App extends Component {
           <div className="col-8">
             <PortalForm />
             <Portal
-              tutorials={this.state.tutorials}
-              resources={this.state.resources}
-              podcasts={this.state.podcasts}
-              blogs={this.state.blogs}
+              // items={items}
+              tutorials={tutorials}
+              resources={resources}
+              podcasts={podcasts}
+              blogs={blogs}
+              activeTab={activeTab}
+              tabView={this.tabView}
+              deleteSingleTutorial={this.deleteOne}
+              updateIsCompleted={this.updateOneCheckbox}
             />
           </div>
         </div>

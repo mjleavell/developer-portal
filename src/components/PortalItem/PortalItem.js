@@ -1,34 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import itemShape from '../../helpers/propz/itemShape';
-import './TutorialItem.scss';
+import './PortalItem.scss';
 
-class TutorialItem extends React.Component {
+class PortalItem extends React.Component {
   static propTypes = {
-    tutorial: itemShape,
+    item: itemShape,
     deleteSingleTutorial: PropTypes.func,
-    updateIsCompleted: PropTypes.func,
   }
 
   deleteEvent = (e) => {
     e.preventDefault();
     const { deleteSingleTutorial, tutorial } = this.props;
-    deleteSingleTutorial(tutorial.id);
-  }
-
-  updateEvent = (e) => {
-    e.preventDefault();
-    const { updateIsCompleted, tutorial } = this.props;
-    const isCompleted = e.target.checked;
-    updateIsCompleted(tutorial.id, isCompleted);
+    deleteSingleTutorial(tutorial.id, tutorial.type);
   }
 
   render() {
-    const { tutorial } = this.props;
+    const { item } = this.props;
     return (
-      <li className="tutorial-item">
-        <span className="col-md-4">{tutorial.name}</span>
-        <span className="col-md-6">{tutorial.url}</span>
+      <li className="portal-item">
+        <span className="col-md-4">{item.name}</span>
+        <span className="col-md-6">{item.url}</span>
         <span className="col-md-1">
           <button className="btn btn-danger" onClick={this.deleteEvent}>X</button>
         </span>
@@ -37,8 +29,7 @@ class TutorialItem extends React.Component {
             type="checkbox"
             className="form-check-input item-checkbox"
             id="tutorial-check"
-            checked={tutorial.isCompleted}
-            onChange={this.updateEvent}
+            checked={item.isCompleted}
           />
           <label className="form-check-label" htmlFor="tutorial-check">
             Done
@@ -49,4 +40,4 @@ class TutorialItem extends React.Component {
   }
 }
 
-export default TutorialItem;
+export default PortalItem;
