@@ -5,9 +5,13 @@ import './Auth.scss';
 class Auth extends React.Component {
   authenticateUser = (e) => {
     e.preventDefault();
-    authRequests.authenticate().then(() => {
-      this.props.isAuthenticated();
-    }).catch(err => console.error('auth', err));
+    authRequests.authenticate()
+      .then((results) => {
+        const userName = results.additionalUserInfo.username;
+        const currentUid = results.user.uid;
+        const profile = results;
+        this.props.isAuthenticated(userName, currentUid, profile);
+      }).catch(err => console.error('auth', err));
   }
 
   render() {

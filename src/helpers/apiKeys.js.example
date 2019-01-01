@@ -7,6 +7,11 @@ const apiKeys = {
     storageBucket: '',
     messagingSenderId: '',
   },
+    githubApi: {
+    apiUrl: 'https://api.github.com',
+    client_id: '',
+    client_secret: '',
+  },
 };
 
 export default apiKeys;

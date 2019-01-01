@@ -10,6 +10,7 @@ import Profile from '../components/Profile/Profile';
 
 import connection from '../helpers/data/connection';
 import authRequests from '../helpers/data/authRequests';
+import gitHubRequests from '../helpers/data/gitHubRequests';
 import './App.scss';
 import tutorialsRequest from '../helpers/data/tutorialsRequest';
 import resourcesRequest from '../helpers/data/resourcesRequest';
@@ -19,23 +20,35 @@ import blogsRequest from '../helpers/data/blogsRequest';
 class App extends Component {
   state = {
     authed: false,
+    gitHubUserName: '',
+    gitHubProfile: {},
+    uid: '',
     activeTab: 'tutorials',
     tutorials: [],
     resources: [],
     blogs: [],
     podcasts: [],
-    // items: [],
   }
 
 
   componentDidMount() {
     connection();
 
+    // gitHubTest = (userName) => {
+    //   gitHubRequests.getGithubUser(userName).then((results) => {
+    //     this.setState({ gitHubProfile: results });
+    //   })
+    //     .catch(err => console.error('error in githubTest', err));
+    // };
+
+    const gitHubUserInfo = (userName) => {
+      gitHubRequests.getGithubUser(userName).then((results) => {
+        this.setState({ gitHubProfile: results });
+      })
+        .catch(err => console.error('error in githubTest', err));
+    };
+
     const getAllItems = () => {
-    //   const uid = authRequests.getCurrentUid();
-    //   portalRequests.getItems(uid, type).then((items) => {
-    //     this.setState({ items });
-    //   });
       const uid = authRequests.getCurrentUid();
       tutorialsRequest.getTutorials(uid).then((tutorials) => {
         this.setState({ tutorials });
@@ -54,9 +67,15 @@ class App extends Component {
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        const currentUserName = sessionStorage.getItem('gitHubUserName');
+        const currentUid = sessionStorage.getItem('uid');
         getAllItems();
+        gitHubUserInfo(currentUserName);
         this.setState({
           authed: true,
+          gitHubUserName: currentUserName,
+          uid: currentUid,
+          // dk why i dont need profile here
         });
       } else {
         this.setState({
@@ -77,8 +96,18 @@ class App extends Component {
     }
   };
 
-  isAuthenticated = () => {
-    this.setState({ authed: true });
+  isAuthenticated = (userName, currentUid, userProfile) => {
+    this.setState({
+      authed: true,
+      gitHubUserName: userName,
+      uid: currentUid,
+      gitHubProfile: userProfile,
+    });
+    sessionStorage.setItem('gitHubUserName', userName);
+    sessionStorage.setItem('uid', currentUid);
+    sessionStorage.setItem('gitHubProfile', userProfile);
+    // this.getAllItems();
+    // this.gitHubUserInfo(userName);
   }
 
   deleteOne = (tutorialId) => {
@@ -116,6 +145,8 @@ class App extends Component {
   render() {
     const {
       authed,
+      gitHubUserName,
+      gitHubProfile,
       tutorials,
       resources,
       blogs,
@@ -127,6 +158,9 @@ class App extends Component {
       authRequests.logoutUser();
       this.setState({
         authed: false,
+        gitHubUserName: '',
+        gitHubProfile: {},
+        uid: '',
         tutorials: [],
         resources: [],
         blogs: [],
@@ -134,24 +168,27 @@ class App extends Component {
       });
     };
 
-    if (!this.state.authed) {
+    if (!authed) {
       return (
         <div className="App">
           <MyNavbar />
-          <Auth isAuthenticated={this.isAuthenticated}/>
+          <Auth isAuthenticated={this.isAuthenticated} />
         </div>
       );
     }
 
     return (
       <div className="App">
-        <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
+        <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
         <div className="row justify-content-around">
           <div className="col-3">
-            <Profile />
+            <Profile
+              gitHubUserName={gitHubUserName}
+              gitHubProfile={gitHubProfile}
+            />
           </div>
           <div className="col-8">
-            <PortalForm onSubmit={this.formSubmitEvent}/>
+            <PortalForm onSubmit={this.formSubmitEvent} />
             <Portal
               // items={items}
               tutorials={tutorials}

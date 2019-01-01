@@ -72,7 +72,7 @@ class Portal extends React.Component {
               className={classnames({ active: activeTab === 'tutorials' })}
               onClick={() => { tabView('tutorials'); }}
             >
-            Tutorials
+              Tutorials
             </NavLink>
           </NavItem>
           <NavItem>
@@ -81,7 +81,7 @@ class Portal extends React.Component {
               className={classnames({ active: activeTab === 'blogs' })}
               onClick={() => { tabView('blogs'); }}
             >
-            Blogs
+              Blogs
             </NavLink>
           </NavItem>
           <NavItem>
@@ -90,7 +90,7 @@ class Portal extends React.Component {
               className={classnames({ active: activeTab === 'resources' })}
               onClick={() => { tabView('resources'); }}
             >
-            Resources
+              Resources
             </NavLink>
           </NavItem>
           <NavItem>
@@ -99,7 +99,7 @@ class Portal extends React.Component {
               className={classnames({ active: activeTab === 'podcasts' })}
               onClick={() => { tabView('podcasts'); }}
             >
-            Podcasts
+              Podcasts
             </NavLink>
           </NavItem>
         </Nav>
