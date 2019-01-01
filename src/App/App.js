@@ -10,6 +10,7 @@ import Profile from '../components/Profile/Profile';
 
 import connection from '../helpers/data/connection';
 import authRequests from '../helpers/data/authRequests';
+import gitHubRequests from '../helpers/data/gitHubRequests';
 import './App.scss';
 import tutorialsRequest from '../helpers/data/tutorialsRequest';
 import resourcesRequest from '../helpers/data/resourcesRequest';
@@ -19,12 +20,14 @@ import blogsRequest from '../helpers/data/blogsRequest';
 class App extends Component {
   state = {
     authed: false,
+    gitHubUserName: '',
+    gitHubProfile: '',
+    uid: '',
     activeTab: 'tutorials',
     tutorials: [],
     resources: [],
     blogs: [],
     podcasts: [],
-    // items: [],
   }
 
 
@@ -32,10 +35,6 @@ class App extends Component {
     connection();
 
     const getAllItems = () => {
-    //   const uid = authRequests.getCurrentUid();
-    //   portalRequests.getItems(uid, type).then((items) => {
-    //     this.setState({ items });
-    //   });
       const uid = authRequests.getCurrentUid();
       tutorialsRequest.getTutorials(uid).then((tutorials) => {
         this.setState({ tutorials });
@@ -52,11 +51,22 @@ class App extends Component {
         .catch(err => console.error('get tutorials', err));
     };
 
+    const gitHubTest = (username) => {
+      gitHubRequests.getGithubUser(username).then((results) => {
+        this.setState({ gitHubProfile: results });
+      });
+    };
+
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        const currentUserName = sessionStorage.getItem('gitHubUserName');
+        const currentUid = sessionStorage.getItem('uid');
         getAllItems();
+        gitHubTest(currentUserName);
         this.setState({
           authed: true,
+          gitHubUserName: currentUserName,
+          uid: currentUid,
         });
       } else {
         this.setState({
@@ -77,8 +87,14 @@ class App extends Component {
     }
   };
 
-  isAuthenticated = () => {
-    this.setState({ authed: true });
+  isAuthenticated = (userName, currentUid) => {
+    this.setState({
+      authed: true,
+      gitHubUserName: userName,
+      uid: currentUid,
+    });
+    sessionStorage.setItem('gitHubUserName', userName);
+    sessionStorage.setItem('uid', currentUid);
   }
 
   deleteOne = (tutorialId) => {
@@ -116,6 +132,8 @@ class App extends Component {
   render() {
     const {
       authed,
+      gitHubUserName,
+      gitHubProfile,
       tutorials,
       resources,
       blogs,
@@ -127,6 +145,9 @@ class App extends Component {
       authRequests.logoutUser();
       this.setState({
         authed: false,
+        gitHubUserName: '',
+        gitHubProfile: '',
+        uid: '',
         tutorials: [],
         resources: [],
         blogs: [],
@@ -138,20 +159,23 @@ class App extends Component {
       return (
         <div className="App">
           <MyNavbar />
-          <Auth isAuthenticated={this.isAuthenticated}/>
+          <Auth isAuthenticated={this.isAuthenticated} />
         </div>
       );
     }
 
     return (
       <div className="App">
-        <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent}/>
+        <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
         <div className="row justify-content-around">
           <div className="col-3">
-            <Profile />
+            <Profile
+              gitHubUserName={gitHubUserName}
+              gitHubProfile={gitHubProfile}
+            />
           </div>
           <div className="col-8">
-            <PortalForm onSubmit={this.formSubmitEvent}/>
+            <PortalForm onSubmit={this.formSubmitEvent} />
             <Portal
               // items={items}
               tutorials={tutorials}
