@@ -7,10 +7,10 @@ class Auth extends React.Component {
     e.preventDefault();
     authRequests.authenticate()
       .then((results) => {
-        // console.log(results);
         const userName = results.additionalUserInfo.username;
         const currentUid = results.user.uid;
-        this.props.isAuthenticated(userName, currentUid);
+        const profile = results;
+        this.props.isAuthenticated(userName, currentUid, profile);
       }).catch(err => console.error('auth', err));
   }
 

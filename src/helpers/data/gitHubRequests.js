@@ -3,10 +3,11 @@ import apiKeys from '../apiKeys';
 
 const githubUrl = apiKeys.githubApi.apiUrl;
 
-const getGithubUser = username => new Promise((resolve, reject) => {
-  axios.get(`${githubUrl}/users/${username}`).then((result) => {
-    resolve(result.data);
-  })
+const getGithubUser = userName => new Promise((resolve, reject) => {
+  axios.get(`${githubUrl}/users/${userName}`)
+    .then((result) => {
+      resolve(result.data);
+    })
     .catch(err => reject(err));
 });
 

@@ -21,7 +21,7 @@ class App extends Component {
   state = {
     authed: false,
     gitHubUserName: '',
-    gitHubProfile: '',
+    gitHubProfile: {},
     uid: '',
     activeTab: 'tutorials',
     tutorials: [],
@@ -33,6 +33,20 @@ class App extends Component {
 
   componentDidMount() {
     connection();
+
+    // gitHubTest = (userName) => {
+    //   gitHubRequests.getGithubUser(userName).then((results) => {
+    //     this.setState({ gitHubProfile: results });
+    //   })
+    //     .catch(err => console.error('error in githubTest', err));
+    // };
+
+    const gitHubUserInfo = (userName) => {
+      gitHubRequests.getGithubUser(userName).then((results) => {
+        this.setState({ gitHubProfile: results });
+      })
+        .catch(err => console.error('error in githubTest', err));
+    };
 
     const getAllItems = () => {
       const uid = authRequests.getCurrentUid();
@@ -51,22 +65,17 @@ class App extends Component {
         .catch(err => console.error('get tutorials', err));
     };
 
-    const gitHubTest = (username) => {
-      gitHubRequests.getGithubUser(username).then((results) => {
-        this.setState({ gitHubProfile: results });
-      });
-    };
-
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const currentUserName = sessionStorage.getItem('gitHubUserName');
         const currentUid = sessionStorage.getItem('uid');
         getAllItems();
-        gitHubTest(currentUserName);
+        gitHubUserInfo(currentUserName);
         this.setState({
           authed: true,
           gitHubUserName: currentUserName,
           uid: currentUid,
+          // dk why i dont need profile here
         });
       } else {
         this.setState({
@@ -87,14 +96,18 @@ class App extends Component {
     }
   };
 
-  isAuthenticated = (userName, currentUid) => {
+  isAuthenticated = (userName, currentUid, userProfile) => {
     this.setState({
       authed: true,
       gitHubUserName: userName,
       uid: currentUid,
+      gitHubProfile: userProfile,
     });
     sessionStorage.setItem('gitHubUserName', userName);
     sessionStorage.setItem('uid', currentUid);
+    sessionStorage.setItem('gitHubProfile', userProfile);
+    // this.getAllItems();
+    // this.gitHubUserInfo(userName);
   }
 
   deleteOne = (tutorialId) => {
@@ -146,7 +159,7 @@ class App extends Component {
       this.setState({
         authed: false,
         gitHubUserName: '',
-        gitHubProfile: '',
+        gitHubProfile: {},
         uid: '',
         tutorials: [],
         resources: [],
@@ -155,7 +168,7 @@ class App extends Component {
       });
     };
 
-    if (!this.state.authed) {
+    if (!authed) {
       return (
         <div className="App">
           <MyNavbar />
