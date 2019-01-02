@@ -41,13 +41,6 @@ class App extends Component {
     //     .catch(err => console.error('error in githubTest', err));
     // };
 
-    const gitHubUserInfo = (userName) => {
-      gitHubRequests.getGithubUser(userName).then((results) => {
-        this.setState({ gitHubProfile: results });
-      })
-        .catch(err => console.error('error in githubTest', err));
-    };
-
     const getAllItems = () => {
       const uid = authRequests.getCurrentUid();
       tutorialsRequest.getTutorials(uid).then((tutorials) => {
@@ -65,12 +58,29 @@ class App extends Component {
         .catch(err => console.error('get tutorials', err));
     };
 
+    const gitHubUserInfo = (userName) => {
+      gitHubRequests.getGithubUser(userName).then((results) => {
+        this.setState({ gitHubProfile: results });
+      })
+        .catch(err => console.error('error in githubTest', err));
+    };
+
+    const gitHubUserCommits = (userName) => {
+      gitHubRequests.getCommits(userName).then((results) => {
+        // results.forEach((item) => {
+        debugger;
+        console.log(results);
+        console.log(results.payload.commits);
+      });
+    };
+
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const currentUserName = sessionStorage.getItem('gitHubUserName');
         const currentUid = sessionStorage.getItem('uid');
         getAllItems();
         gitHubUserInfo(currentUserName);
+        gitHubUserCommits(currentUserName);
         this.setState({
           authed: true,
           gitHubUserName: currentUserName,
