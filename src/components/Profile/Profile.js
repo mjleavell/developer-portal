@@ -15,10 +15,11 @@ import './Profile.scss';
 class Profile extends React.Component {
   static propTypes = {
     gitHubProfile: PropTypes.object,
+    gitHubCommits: PropTypes.number,
   };
 
   render() {
-    const { gitHubProfile } = this.props;
+    const { gitHubProfile, gitHubCommits } = this.props;
     return (
       <div id="profile">
         <Card>
@@ -26,7 +27,7 @@ class Profile extends React.Component {
           <CardBody>
             <CardTitle>{gitHubProfile.login}</CardTitle>
             <CardSubtitle><strong>Location: </strong>{gitHubProfile.location}</CardSubtitle>
-            <CardText><strong>Commits: </strong>{gitHubProfile.bio}</CardText>
+            <CardText><strong>Commits: </strong>{gitHubCommits}</CardText>
             <CardLink href={gitHubProfile.html_url}>Link to GitHub Profile</CardLink>
           </CardBody>
         </Card>
