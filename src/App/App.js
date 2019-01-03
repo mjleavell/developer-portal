@@ -22,6 +22,7 @@ class App extends Component {
     authed: false,
     gitHubUserName: '',
     gitHubProfile: {},
+    gitHubCommits: 0,
     uid: '',
     activeTab: 'tutorials',
     tutorials: [],
@@ -59,25 +60,26 @@ class App extends Component {
     };
 
     const gitHubUserInfo = (userName) => {
-      gitHubRequests.getGithubUser(userName).then((results) => {
+      gitHubRequests.getUserInfo(userName).then((results) => {
+        console.log(results);
         this.setState({ gitHubProfile: results });
       })
-        .catch(err => console.error('error in githubTest', err));
+        .catch(err => console.error('error in githubuser', err));
     };
 
     const gitHubUserCommits = (userName) => {
-      gitHubRequests.getCommits(userName).then((results) => {
-        // results.forEach((item) => {
-        debugger;
-        console.log(results);
-        console.log(results.payload.commits);
-      });
+      gitHubRequests.getCommits(userName).then((result) => {
+        this.setState({ gitHubCommits: result });
+      })
+        .catch(err => console.error(err));
     };
 
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const currentUserName = sessionStorage.getItem('gitHubUserName');
         const currentUid = sessionStorage.getItem('uid');
+        // const userProfile = sessionStorage.getItem('gitHubProfile');
+        // const userObject = JSON.parse(userProfile);
         getAllItems();
         gitHubUserInfo(currentUserName);
         gitHubUserCommits(currentUserName);
@@ -86,6 +88,7 @@ class App extends Component {
           gitHubUserName: currentUserName,
           uid: currentUid,
           // dk why i dont need profile here
+          // gitHubProfile: userObject,
         });
       } else {
         this.setState({
@@ -157,6 +160,7 @@ class App extends Component {
       authed,
       gitHubUserName,
       gitHubProfile,
+      gitHubCommits,
       tutorials,
       resources,
       blogs,
@@ -170,6 +174,7 @@ class App extends Component {
         authed: false,
         gitHubUserName: '',
         gitHubProfile: {},
+        gitHubCommits: 0,
         uid: '',
         tutorials: [],
         resources: [],
@@ -195,6 +200,7 @@ class App extends Component {
             <Profile
               gitHubUserName={gitHubUserName}
               gitHubProfile={gitHubProfile}
+              gitHubCommits={gitHubCommits}
             />
           </div>
           <div className="col-8">
