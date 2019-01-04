@@ -18,7 +18,7 @@ const getCommits = userName => new Promise((resolve, reject) => {
       const commits = results.data.filter(event => event.type === 'PushEvent');
       commits.forEach((commit) => {
         commitCounter += commit.payload.commits.length;
-        console.log(commit.payload.commits);
+        // console.log(commit.payload.commits);
       });
       resolve(commitCounter);
     })

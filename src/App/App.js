@@ -41,6 +41,7 @@ class App extends Component {
     //   })
     //     .catch(err => console.error('error in githubTest', err));
     // };
+    // const sortPortalItems = (first, second) => first.isCompleted - second.isCompleted;
 
     const getAllItems = () => {
       const uid = authRequests.getCurrentUid();
