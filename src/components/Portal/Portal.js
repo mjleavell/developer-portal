@@ -104,7 +104,7 @@ class Portal extends React.Component {
           </NavItem>
         </Nav>
         <div className="portal-content">
-          <TabContent activeTab={activeTab}>
+          <TabContent activeTab={activeTab} data={tutorials}>
             <TabPane tabId="tutorials">
               {tutorialItemComponents}
             </TabPane>

@@ -12,6 +12,11 @@ const getTutorials = uid => new Promise((resolve, reject) => {
         tutorials.push(res.data[key]);
       });
     }
+    tutorials.sort((a, b) => {
+      return a.isCompleted - b.isCompleted;
+      // });
+    });
+    console.log(tutorials);
     resolve(tutorials);
   })
     .catch(err => reject(err));
