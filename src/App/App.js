@@ -12,10 +12,6 @@ import connection from '../helpers/data/connection';
 import authRequests from '../helpers/data/authRequests';
 import gitHubRequests from '../helpers/data/gitHubRequests';
 import './App.scss';
-// import tutorialsRequest from '../helpers/data/tutorialsRequest';
-// import resourcesRequest from '../helpers/data/resourcesRequest';
-// import podcastsRequests from '../helpers/data/podcastsRequests';
-// import blogsRequest from '../helpers/data/blogsRequest';
 import portalRequests from '../helpers/data/portalRequests';
 
 class App extends Component {
@@ -35,42 +31,8 @@ class App extends Component {
   componentDidMount() {
     connection();
 
-    const sortPortal = items => items.sort((a, b) => a.isCompleted - b.isCompleted);
-
-    const getAllItems = () => {
-      const uid = authRequests.getCurrentUid();
-      portalRequests.getItems(uid).then((items) => {
-        const blogs = [];
-        const podcasts = [];
-        const resources = [];
-        const tutorials = [];
-        items.forEach((item) => {
-          if (item.type === 'blog') {
-            blogs.push(item);
-          } else if (item.type === 'podcast') {
-            podcasts.push(item);
-          } else if (item.type === 'resource') {
-            resources.push(item);
-          } else if (item.type === 'tutorial') {
-            tutorials.push(item);
-          }
-        });
-        sortPortal(blogs);
-        sortPortal(podcasts);
-        sortPortal(resources);
-        sortPortal(tutorials);
-        this.setState({
-          blogs,
-          podcasts,
-          resources,
-          tutorials,
-        });
-      });
-    };
-
     const gitHubUserInfo = (userName) => {
       gitHubRequests.getUserInfo(userName).then((results) => {
-        console.log(results);
         this.setState({ gitHubProfile: results });
       })
         .catch(err => console.error('error in githubuser', err));
@@ -88,7 +50,7 @@ class App extends Component {
         const currentUserName = sessionStorage.getItem('gitHubUserName');
         // const userProfile = sessionStorage.getItem('gitHubProfile');
         // const userObject = JSON.parse(userProfile);
-        getAllItems();
+        this.getAllItems();
         gitHubUserInfo(currentUserName);
         gitHubUserCommits(currentUserName);
         this.setState({
@@ -124,38 +86,62 @@ class App extends Component {
     });
     sessionStorage.setItem('gitHubUserName', userName);
     sessionStorage.setItem('gitHubProfile', userProfile);
-    // this.getAllItems();
+    this.getAllItems();
     // this.gitHubUserInfo(userName);
   }
 
-  // deleteOne = (itemId) => {
-  //   const uid = authRequests.getCurrentUid();
-  //   portalRequests.deleteTutorial(itemId)
-  //     .then(() => {
-  //       portalRequests.getItems(uid);
-  //     })
-  //     .catch(err => console.error('error with delete single', err));
-  // }
+  getAllItems = () => {
+    const uid = authRequests.getCurrentUid();
+    const sortPortal = items => items.sort((a, b) => a.isCompleted - b.isCompleted);
+    portalRequests.getItems(uid).then((items) => {
+      const blogs = [];
+      const podcasts = [];
+      const resources = [];
+      const tutorials = [];
+      items.forEach((item) => {
+        if (item.type === 'blog') {
+          blogs.push(item);
+        } else if (item.type === 'podcast') {
+          podcasts.push(item);
+        } else if (item.type === 'resource') {
+          resources.push(item);
+        } else if (item.type === 'tutorial') {
+          tutorials.push(item);
+        }
+      });
+      sortPortal(blogs);
+      sortPortal(podcasts);
+      sortPortal(resources);
+      sortPortal(tutorials);
+      this.setState({
+        blogs,
+        podcasts,
+        resources,
+        tutorials,
+      });
+    });
+  };
 
-  // updateOneCheckbox = (tutorialId, isCompleted) => {
-  //   const uid = authRequests.getCurrentUid();
-  //   tutorialsRequest.updateIsCompleted(tutorialId, isCompleted)
-  //     .then(() => {
-  //       tutorialsRequest.getTutorials(uid).then((tutorials) => {
-  //         this.setState({ tutorials });
-  //       });
-  //     });
-  // }
+  deleteOne = (itemId) => {
+    portalRequests.deleteOneItem(itemId).then(() => {
+      this.getAllItems();
+    })
+      .catch(err => console.error('error with delete', err));
+  }
 
-  // formSubmitEvent = (newItem) => {
-  //   const uid = authRequests.getCurrentUid();
-  //   tutorialsRequest.postRequest(newItem).then(() => {
-  //     tutorialsRequest.getTutorials(uid).then((tutorials) => {
-  //       this.setState({ tutorials });
-  //     });
-  //   })
-  //     .catch(err => console.error('error formSubmit', err));
-  // }
+  updateOneCheckbox = (itemId, isCompleted) => {
+    portalRequests.updateIsCompleted(itemId, isCompleted).then(() => {
+      this.getAllItems();
+    })
+      .catch(err => console.error('error update', err));
+  }
+
+  formSubmitEvent = (newItem) => {
+    portalRequests.postRequest(newItem).then(() => {
+      this.getAllItems();
+    })
+      .catch(err => console.error('error formSubmit', err));
+  }
 
   render() {
     const {
@@ -205,8 +191,7 @@ class App extends Component {
             />
           </div>
           <div className="col-8">
-            {/* <PortalForm onSubmit={this.formSubmitEvent} /> */}
-            <PortalForm />
+            <PortalForm onSubmit={this.formSubmitEvent} />
             <Portal
               items={this.getAllItems}
               tutorials={tutorials}
@@ -215,8 +200,8 @@ class App extends Component {
               blogs={blogs}
               activeTab={activeTab}
               tabView={this.tabView}
-              // deleteSingleTutorial={this.deleteOne}
-              // updateIsCompleted={this.updateOneCheckbox}
+              deleteSingleItem={this.deleteOne}
+              updateIsCompleted={this.updateOneCheckbox}
             />
           </div>
         </div>

@@ -21,7 +21,7 @@ const deleteOneItem = itemId => axios.delete(`${baseUrl}/items/${itemId}.json`);
 
 const updateIsCompleted = (itemId, isCompleted) => axios.patch(`${baseUrl}/items/${itemId}.json`, { isCompleted });
 
-const postRequest = newItemObject => axios.post(`${baseUrl}/tutorials.json`, newItemObject);
+const postRequest = newItemObject => axios.post(`${baseUrl}/items/.json`, newItemObject);
 
 export default {
   getItems,
