@@ -1,0 +1,151 @@
+{
+  "items": {
+    "item1": {
+      "name": "CodeBetter",
+      "type": "blog",
+      "url": "http://codebetter.com/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item2": {
+      "name": "A List Apart",
+      "type": "blog",
+      "url": "http://alistapart.com/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item3": {
+      "name": "Coding Horror",
+      "type": "blog",
+      "url": "http://www.codinghorror.com/blog/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item4": {
+      "name": "Geeks For Geeks",
+      "type": "blog",
+      "url": "http://www.geeksforgeeks.org/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item5": {
+      "name": "Daily JS",
+      "type": "blog",
+      "url": "http://dailyjs.com/",
+      "uid": "12344",
+      "isCompleted": false
+    },
+    "item6": {
+      "name": "SYNTAX",
+      "type": "podcast",
+      "url": "https://syntax.fm/?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=syntax",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item7": {
+      "name": "Motion and Meaning",
+      "type": "podcast",
+      "url": "http://motionandmeaning.io/?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=motion-and-meaning",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item8": {
+      "name": "Developer Tea",
+      "type": "podcast",
+      "url": "https://spec.fm/podcasts/developer-tea?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=developer-tea",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item9": {
+      "name": "Front End Happy Hour",
+      "type": "podcast",
+      "url": "http://frontendhappyhour.com/?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=front-end-happy-hour",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item10": {
+      "name": "JavaScript Jabber",
+      "type": "podcast",
+      "url": "https://devchat.tv/js-jabber?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=javascript-jabber",
+      "uid": "12345",
+      "isCompleted": false
+    },
+    "item11": {
+      "name": "CodeNewbie",
+      "type": "podcast",
+      "url": "https://www.codenewbie.org/podcast?utm_source=layout&utm_medium=resources&utm_campaign=developer-podcasts&utm_content=code-newbie",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item12": {
+      "name": "Sketch",
+      "type": "resource",
+      "url": "https://www.sketchapp.com/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item13": {
+      "name": "Rocket - Emoji Picker",
+      "type": "resource",
+      "url": "http://matthewpalmer.net/rocket/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item14": {
+      "name": "reactstrap",
+      "type": "resource",
+      "url": "https://reactstrap.github.io/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item15": {
+      "name": "bootstrap",
+      "type": "resource",
+      "url": "https://getbootstrap.com/",
+      "uid": "123445",
+      "isCompleted": false
+    },
+    "item16": {
+      "name": "Sip",
+      "type": "resource",
+      "url": "http://sipapp.io/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item17": {
+      "name": "Wes Bos - JavaScript 30",
+      "type": "tutorial",
+      "url": "https://javascript30.com/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item18": {
+      "name": "Wes Bos - React",
+      "type": "tutorial",
+      "url": "https://reactforbeginners.com/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item19": {
+      "name": "CSS Grid",
+      "type": "tutorial",
+      "url": "https://css-tricks.com/snippets/css/complete-guide-grid/",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item20": {
+      "name": "Array and Object Methods",
+      "type": "tutorial",
+      "url": "https://codeburst.io/useful-javascript-array-and-object-methods-6c7971d93230",
+      "uid": "86NJXynfpzURqeQSeOYoGUPjQ2p1",
+      "isCompleted": false
+    },
+    "item21": {
+      "name": "Array Reduce Method",
+      "type": "tutorial",
+      "url": "https://medium.freecodecamp.org/reduce-f47a7da511a9",
+      "uid": "21345",
+      "isCompleted": false
+    }
+  }
+}

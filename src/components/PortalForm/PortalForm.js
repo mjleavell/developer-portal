@@ -17,15 +17,15 @@ class PortalForm extends React.Component {
   }
 
   state = {
-    newTutorial: defaultItem,
+    newItem: defaultItem,
     radioBtnSelected: false,
   }
 
   formFieldStringState = (value, e) => {
     e.preventDefault();
-    const tempTutorial = { ...this.state.newTutorial };
-    tempTutorial[value] = e.target.value;
-    this.setState({ newTutorial: tempTutorial });
+    const tempItem = { ...this.state.newItem };
+    tempItem[value] = e.target.value;
+    this.setState({ newItem: tempItem });
   }
 
   handleName = e => this.formFieldStringState('name', e);
@@ -40,16 +40,15 @@ class PortalForm extends React.Component {
   formSubmit = (e) => {
     e.preventDefault();
     const { onSubmit } = this.props;
-    const myItem = { ...this.state.newTutorial };
+    const myItem = { ...this.state.newItem };
     myItem.uid = authRequests.getCurrentUid();
-    console.log(myItem);
     onSubmit(myItem);
-    this.setState({ newTutorial: defaultItem });
+    this.setState({ newItem: defaultItem });
   }
 
   render() {
     const {
-      newTutorial,
+      newItem,
       radioBtnSelected,
     } = this.state;
 
@@ -66,7 +65,7 @@ class PortalForm extends React.Component {
                 id="name"
                 aria-describedby="textHelp"
                 placeholder="Enter name"
-                value={newTutorial.name}
+                value={newItem.name}
                 onChange={this.handleName}
               />
               <label htmlFor="url" className="mt-1">Link:</label>
@@ -76,7 +75,7 @@ class PortalForm extends React.Component {
                 id="url"
                 aria-describedby="textHelp"
                 placeholder="Enter url"
-                value={newTutorial.url}
+                value={newItem.url}
                 onChange={this.handleUrl}
               />
             </div>

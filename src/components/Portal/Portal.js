@@ -9,14 +9,11 @@ import {
   TabPane,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import TutorialItem from '../TutorialItem/TutorialItem';
-import ResourceItem from '../ResourceItem/ResourceItem';
-import BlogsItem from '../BlogsItem/BlogsItem';
-import PodcastItem from '../PodcastsItem/PodcastsItem';
+import PortalItem from '../PortalItem/PortalItem';
 
 class Portal extends React.Component {
   static propTypes = {
-    deleteSingleTutorial: PropTypes.func,
+    deleteSingleItem: PropTypes.func,
     updateIsCompleted: PropTypes.func,
     tabView: PropTypes.func,
   }
@@ -29,37 +26,43 @@ class Portal extends React.Component {
       podcasts,
       activeTab,
       tabView,
-      deleteSingleTutorial,
+      deleteSingleItem,
       updateIsCompleted,
     } = this.props;
 
     const tutorialItemComponents = tutorials.map(tutorial => (
-      <TutorialItem
+      <PortalItem
         tutorial={tutorial}
         key={tutorial.id}
-        deleteSingleTutorial={deleteSingleTutorial}
+        deleteSingleItem={deleteSingleItem}
         updateIsCompleted={updateIsCompleted}
       />
     ));
 
     const resourceItemComponent = resources.map(resource => (
-      <ResourceItem
+      <PortalItem
         resource={resource}
         key={resource.id}
+        deleteSingleItem={deleteSingleItem}
+        updateIsCompleted={updateIsCompleted}
       />
     ));
 
     const blogItemComponent = blogs.map(blog => (
-      <BlogsItem
+      <PortalItem
         blog={blog}
         key={blog.id}
+        deleteSingleItem={deleteSingleItem}
+        updateIsCompleted={updateIsCompleted}
       />
     ));
 
     const podcastItemComponent = podcasts.map(podcast => (
-      <PodcastItem
+      <PortalItem
         podcast={podcast}
         key={podcast.id}
+        deleteSingleItem={deleteSingleItem}
+        updateIsCompleted={updateIsCompleted}
       />
     ));
 

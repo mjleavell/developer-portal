@@ -3,13 +3,13 @@ import apiKeys from '../apiKeys';
 
 const baseUrl = apiKeys.firebaseConfig.databaseURL;
 
-const getItems = (uid, itemType) => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/${itemType}.json?orderBy="uid"&equalTo="${uid}"`).then((res) => {
+const getItems = uid => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/items.json?orderBy="uid"&equalTo="${uid}"`).then((res) => {
     const items = [];
     if (res.data !== null) {
       Object.keys(res.data).forEach((key) => {
         res.data[key].id = key;
-        getItems.push(res.data[key]);
+        items.push(res.data[key]);
       });
     }
     resolve(items);
@@ -17,12 +17,15 @@ const getItems = (uid, itemType) => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-const deleteOneItem = (itemId, itemType) => axios.delete(`${baseUrl}/${itemType}/${itemId}.json`);
+const deleteOneItem = itemId => axios.delete(`${baseUrl}/items/${itemId}.json`);
 
-const updateIsCompleted = (itemId, itemType, isCompleted) => axios.patch(`${baseUrl}/${itemType}/${itemId}.json`, { isCompleted });
+const updateIsCompleted = (itemId, isCompleted) => axios.patch(`${baseUrl}/items/${itemId}.json`, { isCompleted });
+
+const postRequest = newItemObject => axios.post(`${baseUrl}/items/.json`, newItemObject);
 
 export default {
   getItems,
   deleteOneItem,
   updateIsCompleted,
+  postRequest,
 };

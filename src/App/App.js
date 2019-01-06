@@ -12,10 +12,7 @@ import connection from '../helpers/data/connection';
 import authRequests from '../helpers/data/authRequests';
 import gitHubRequests from '../helpers/data/gitHubRequests';
 import './App.scss';
-import tutorialsRequest from '../helpers/data/tutorialsRequest';
-import resourcesRequest from '../helpers/data/resourcesRequest';
-import podcastsRequests from '../helpers/data/podcastsRequests';
-import blogsRequest from '../helpers/data/blogsRequest';
+import portalRequests from '../helpers/data/portalRequests';
 
 class App extends Component {
   state = {
@@ -23,7 +20,6 @@ class App extends Component {
     gitHubUserName: '',
     gitHubProfile: {},
     gitHubCommits: 0,
-    uid: '',
     activeTab: 'tutorials',
     tutorials: [],
     resources: [],
@@ -35,34 +31,8 @@ class App extends Component {
   componentDidMount() {
     connection();
 
-    // gitHubTest = (userName) => {
-    //   gitHubRequests.getGithubUser(userName).then((results) => {
-    //     this.setState({ gitHubProfile: results });
-    //   })
-    //     .catch(err => console.error('error in githubTest', err));
-    // };
-    // const sortPortalItems = (first, second) => first.isCompleted - second.isCompleted;
-
-    const getAllItems = () => {
-      const uid = authRequests.getCurrentUid();
-      tutorialsRequest.getTutorials(uid).then((tutorials) => {
-        this.setState({ tutorials });
-      });
-      resourcesRequest.getResources(uid).then((resources) => {
-        this.setState({ resources });
-      });
-      podcastsRequests.getPodcasts(uid).then((podcasts) => {
-        this.setState({ podcasts });
-      });
-      blogsRequest.getBlogs(uid).then((blogs) => {
-        this.setState({ blogs });
-      })
-        .catch(err => console.error('get tutorials', err));
-    };
-
     const gitHubUserInfo = (userName) => {
       gitHubRequests.getUserInfo(userName).then((results) => {
-        console.log(results);
         this.setState({ gitHubProfile: results });
       })
         .catch(err => console.error('error in githubuser', err));
@@ -78,16 +48,14 @@ class App extends Component {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const currentUserName = sessionStorage.getItem('gitHubUserName');
-        const currentUid = sessionStorage.getItem('uid');
         // const userProfile = sessionStorage.getItem('gitHubProfile');
         // const userObject = JSON.parse(userProfile);
-        getAllItems();
+        this.getAllItems();
         gitHubUserInfo(currentUserName);
         gitHubUserCommits(currentUserName);
         this.setState({
           authed: true,
           gitHubUserName: currentUserName,
-          uid: currentUid,
           // dk why i dont need profile here
           // gitHubProfile: userObject,
         });
@@ -114,44 +82,63 @@ class App extends Component {
     this.setState({
       authed: true,
       gitHubUserName: userName,
-      uid: currentUid,
       gitHubProfile: userProfile,
     });
     sessionStorage.setItem('gitHubUserName', userName);
-    sessionStorage.setItem('uid', currentUid);
     sessionStorage.setItem('gitHubProfile', userProfile);
-    // this.getAllItems();
+    this.getAllItems();
     // this.gitHubUserInfo(userName);
   }
 
-  deleteOne = (tutorialId) => {
+  getAllItems = () => {
     const uid = authRequests.getCurrentUid();
-    tutorialsRequest.deleteTutorial(tutorialId)
-      .then(() => {
-        tutorialsRequest.getTutorials(uid)
-          .then((tutorials) => {
-            this.setState({ tutorials });
-          });
-      })
-      .catch(err => console.error('error with delete single', err));
+    const sortPortal = items => items.sort((a, b) => a.isCompleted - b.isCompleted);
+    portalRequests.getItems(uid).then((items) => {
+      const blogs = [];
+      const podcasts = [];
+      const resources = [];
+      const tutorials = [];
+      items.forEach((item) => {
+        if (item.type === 'blog') {
+          blogs.push(item);
+        } else if (item.type === 'podcast') {
+          podcasts.push(item);
+        } else if (item.type === 'resource') {
+          resources.push(item);
+        } else if (item.type === 'tutorial') {
+          tutorials.push(item);
+        }
+      });
+      sortPortal(blogs);
+      sortPortal(podcasts);
+      sortPortal(resources);
+      sortPortal(tutorials);
+      this.setState({
+        blogs,
+        podcasts,
+        resources,
+        tutorials,
+      });
+    });
+  };
+
+  deleteOne = (itemId) => {
+    portalRequests.deleteOneItem(itemId).then(() => {
+      this.getAllItems();
+    })
+      .catch(err => console.error('error with delete', err));
   }
 
-  updateOneCheckbox = (tutorialId, isCompleted) => {
-    const uid = authRequests.getCurrentUid();
-    tutorialsRequest.updateIsCompleted(tutorialId, isCompleted)
-      .then(() => {
-        tutorialsRequest.getTutorials(uid).then((tutorials) => {
-          this.setState({ tutorials });
-        });
-      });
+  updateOneCheckbox = (itemId, isCompleted) => {
+    portalRequests.updateIsCompleted(itemId, isCompleted).then(() => {
+      this.getAllItems();
+    })
+      .catch(err => console.error('error update', err));
   }
 
   formSubmitEvent = (newItem) => {
-    const uid = authRequests.getCurrentUid();
-    tutorialsRequest.postRequest(newItem).then(() => {
-      tutorialsRequest.getTutorials(uid).then((tutorials) => {
-        this.setState({ tutorials });
-      });
+    portalRequests.postRequest(newItem).then(() => {
+      this.getAllItems();
     })
       .catch(err => console.error('error formSubmit', err));
   }
@@ -176,7 +163,6 @@ class App extends Component {
         gitHubUserName: '',
         gitHubProfile: {},
         gitHubCommits: 0,
-        uid: '',
         tutorials: [],
         resources: [],
         blogs: [],
@@ -207,14 +193,14 @@ class App extends Component {
           <div className="col-8">
             <PortalForm onSubmit={this.formSubmitEvent} />
             <Portal
-              // items={items}
+              items={this.getAllItems}
               tutorials={tutorials}
               resources={resources}
               podcasts={podcasts}
               blogs={blogs}
               activeTab={activeTab}
               tabView={this.tabView}
-              deleteSingleTutorial={this.deleteOne}
+              deleteSingleItem={this.deleteOne}
               updateIsCompleted={this.updateOneCheckbox}
             />
           </div>
