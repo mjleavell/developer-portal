@@ -1,15 +1,11 @@
-
 {
-  "blogs" : {
-    "example": "example"
-  },
-  "podcasts" : {
-    "example": "example"
-  },
-  "resources" : {
-    "example": "example"
-  },
-  "tutorials" : {
-    "example": "example"
+  "items": {
+    "item1": {
+      "name": "",
+      "type": "",
+      "url": "",
+      "uid": "",
+      "isCompleted": false
+    }
   }
 }

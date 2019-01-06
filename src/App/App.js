@@ -48,16 +48,12 @@ class App extends Component {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const currentUserName = sessionStorage.getItem('gitHubUserName');
-        // const userProfile = sessionStorage.getItem('gitHubProfile');
-        // const userObject = JSON.parse(userProfile);
         this.getAllItems();
         gitHubUserInfo(currentUserName);
         gitHubUserCommits(currentUserName);
         this.setState({
           authed: true,
           gitHubUserName: currentUserName,
-          // dk why i dont need profile here
-          // gitHubProfile: userObject,
         });
       } else {
         this.setState({
@@ -87,7 +83,6 @@ class App extends Component {
     sessionStorage.setItem('gitHubUserName', userName);
     sessionStorage.setItem('gitHubProfile', userProfile);
     this.getAllItems();
-    // this.gitHubUserInfo(userName);
   }
 
   getAllItems = () => {
@@ -183,14 +178,14 @@ class App extends Component {
       <div className="App">
         <MyNavbar isAuthed={authed} logoutClickEvent={logoutClickEvent} />
         <div className="row justify-content-around">
-          <div className="col-3">
+          <div className="col-4 d-flex justify-content-center">
             <Profile
               gitHubUserName={gitHubUserName}
               gitHubProfile={gitHubProfile}
               gitHubCommits={gitHubCommits}
             />
           </div>
-          <div className="col-8">
+          <div className="col-7 portal-and-form">
             <PortalForm onSubmit={this.formSubmitEvent} />
             <Portal
               items={this.getAllItems}

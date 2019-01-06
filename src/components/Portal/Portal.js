@@ -2,6 +2,7 @@ import React from 'react';
 import './Portal.scss';
 import classnames from 'classnames';
 import {
+  Card,
   Nav,
   NavItem,
   NavLink,
@@ -68,7 +69,7 @@ class Portal extends React.Component {
 
     return (
       <div className="portal">
-        <Nav tabs color="light">
+        <Nav tabs id="portal-nav" className="bg-light">
           <NavItem>
             <NavLink
               id="tutorials"
@@ -106,7 +107,7 @@ class Portal extends React.Component {
             </NavLink>
           </NavItem>
         </Nav>
-        <div className="portal-content">
+        <Card className="portal-content" outline>
           <TabContent activeTab={activeTab} data={tutorials}>
             <TabPane tabId="tutorials">
               {tutorialItemComponents}
@@ -121,7 +122,7 @@ class Portal extends React.Component {
               {podcastItemComponent}
             </TabPane>
           </TabContent>
-        </div>
+        </Card>
       </div>
     );
   }

@@ -1,3 +1,31 @@
 #profile {
   margin-top: 5rem;
+  width: 75%;
+  #profile-card {
+    border: none;
+    #profile-img {
+      width: 75%;
+      margin: 3em auto 0px auto;
+      border: 2px solid black;
+    }
+    .card-body {
+      padding: 0.75em;
+    }
+    #username {
+      font-size: 1.5em;
+    }
+    #commit-count {
+      font-weight: bold;
+      font-size: 2em;
+      margin: 0.3em 0em 0em 0em;
+    }
+    #commit-title {
+      font-size: 1em;
+      font-weight: 500;
+      margin: 0em;
+    }
+    #commit-text {
+      margin: 0em;
+    }
+  }
 }
