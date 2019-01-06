@@ -43,7 +43,7 @@ class PortalForm extends React.Component {
     const myItem = { ...this.state.newItem };
     myItem.uid = authRequests.getCurrentUid();
     onSubmit(myItem);
-    this.setState({ newItem: defaultItem });
+    this.setState({ newItem: defaultItem, radioBtnSelected: false });
   }
 
   render() {
@@ -53,11 +53,10 @@ class PortalForm extends React.Component {
     } = this.state;
 
     return (
-      <div className="portal-form">
-        <h2 className="mt-2">Add new item</h2>
+      <div className="portal-form bg-light">
         <form onSubmit={this.formSubmit}>
           <div className="form-group row">
-            <div className="col-7 p-0 m-2">
+            <div className="col-7 p-2 m-2">
               <label htmlFor="name" className="mt-1">Name:</label>
               <input
                 type="text"

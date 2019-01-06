@@ -1,7 +1,6 @@
 .portal-item {
   text-align: left;
-  border: 1px solid gray;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 2px 0 rgba(155, 155, 155, 0.14), 0 3px 1px -2px rgba(155, 155, 155, .15), 0 1px 3px 0 rgba(155, 155, 155, .12);
   box-sizing: border-box;
   cursor: pointer;
   display: flex;
@@ -9,4 +8,5 @@
   padding: 10px;
   margin-bottom: 10px;
   overflow-wrap: break-word;
+  border: 1px solid #dee2e6 ;
 }

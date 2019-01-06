@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from 'react';
 import PropTypes from 'prop-types';
 import itemShape from '../../helpers/propz/itemShape';
@@ -47,9 +48,9 @@ class PortalItem extends React.Component {
   render() {
     const item = this.getItemType();
     return (
-      <li className="portal-item">
+      <li className="portal-item" outline color="dark">
         <span className="col-md-4">{item.name}</span>
-        <span className="col-md-6">{item.url}</span>
+        <a className="col-md-6 text-body" href={item.url} target="_blank">{item.url}</a>
         <span className="col-md-1 align-self-center justify-content-center">
           <button className="btn btn-danger" onClick={this.deleteEvent}>X</button>
         </span>

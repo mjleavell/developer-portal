@@ -22,13 +22,15 @@ class Profile extends React.Component {
     const { gitHubProfile, gitHubCommits } = this.props;
     return (
       <div id="profile">
-        <Card>
-          <CardImg top id="profile-img" src={gitHubProfile.avatar_url} alt="" />
+        <Card id="profile-card">
+          <CardImg top id="profile-img" src={gitHubProfile.avatar_url} alt={gitHubProfile.login} />
           <CardBody>
-            <CardTitle>{gitHubProfile.login}</CardTitle>
-            <CardSubtitle><strong>Location: </strong>{gitHubProfile.location}</CardSubtitle>
-            <CardText><strong>Commits: </strong>{gitHubCommits}</CardText>
-            <CardLink href={gitHubProfile.html_url}>Link to GitHub Profile</CardLink>
+            <CardTitle id="username">{gitHubProfile.login}</CardTitle>
+            <CardSubtitle className="mb-1">{gitHubProfile.bio}</CardSubtitle>
+            <CardLink href={gitHubProfile.html_url} className="text-body">Link to GitHub Profile</CardLink>
+            <CardText id="commit-count" >{gitHubCommits}</CardText>
+            <CardText id="commit-title">commits</CardText>
+            <CardText id="commit-text">in the last 5 days</CardText>
           </CardBody>
         </Card>
       </div>
