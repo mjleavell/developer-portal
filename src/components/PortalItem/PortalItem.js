@@ -6,12 +6,12 @@ import './PortalItem.scss';
 class PortalItem extends React.Component {
   static propTypes = {
     item: itemShape,
-    deleteSingleTutorial: PropTypes.func,
+    deleteSingleItem: PropTypes.func,
   }
 
   deleteEvent = (e) => {
     e.preventDefault();
-    const { deleteSingleTutorial, tutorial } = this.props;
+    const { deleteSingleItem, tutorial } = this.props;
     deleteSingleTutorial(tutorial.id, tutorial.type);
   }
 
